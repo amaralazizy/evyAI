@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Writer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="protocol.js" type="module" defer></script>
+    <script src="main.js" type="module" defer></script>
+  </head>
+  <body>
+    <main class="panel">
+      <header class="header">
+        <div class="header__title">
+          <h1>AI Writer</h1>
+        </div>
+      </header>
+
+      <section class="welcome">
+        <h2 class="welcome__title">Welcome!</h2>
+        <p class="welcome__subtitle">How can we help you engage today?</p>
+      </section>
+
+      <section class="templates">
+        <button class="template">
+          Create a personalized LinkedIn message to reconnect with a past
+          client.
+        </button>
+        <button class="template">
+          Write a follow-up message after a sales demo to keep the conversation
+          going.
+        </button>
+        <button class="template">
+          Create a personalized LinkedIn message to reconnect with a past
+          client.
+        </button>
+      </section>
+
+      <form class="prompt">
+        <input
+          class="prompt__input"
+          type="text"
+          name="prompt"
+          placeholder="Enter a prompt or select a template here"
+        />
+
+        <div class="prompt__toolbar">
+          <div class="prompt__actions">
+            <button class="generate" disabled>Generate</button>
+          </div>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>

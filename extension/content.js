@@ -1,32 +1,41 @@
-const posts = new Map();
-let nextPostId = 1;
+let activeEl = null;
+let selectors = null;
 
 document.addEventListener(
   "click",
   (e) => {
-    const post = EVY.linkedin.postFromCommentButton(e.target);
-    if (!post) return;
+    if (!selectors) return;
+    const clicked = e.target.closest(selectors.matchSelector);
+    if (!clicked) return;
+    const container = clicked.closest(selectors.containerSelector);
+    if (!container) return;
 
-    const postId = nextPostId++;
-    posts.set(postId, post);
+    activeEl = container;
 
-    const { author, text } = EVY.linkedin.readPost(post) ?? {};
     chrome.runtime.sendMessage({
-      type: EVY.MSG.COMMENT_CLICKED,
-      postId,
-      post: { author, text },
+      type: EVY.MSG.ELEMENT_CAPTURED,
+      elementHTML: container.outerHTML,
     });
   },
   true,
 );
 
 chrome.runtime.onMessage.addListener((msg) => {
-  if (msg.type !== EVY.MSG.COMMENT_GENERATED) return;
+  if (msg.type !== EVY.MSG.INSERT_IN_ELEMENT) return;
 
-  const editor = EVY.linkedin.findEditor(posts.get(msg.postId));
+  const editor = activeEl?.querySelector(msg.editorSelector);
   if (!editor) {
     console.warn("comment editor not found — is the comment box open?");
     return;
   }
-  EVY.linkedin.insertComment(editor, msg.comment);
+  editor.focus();
+  editor.innerText = msg.comment;
+});
+
+chrome.runtime.onMessage.addListener((msg) => {
+  if (msg.type !== EVY.MSG.SET_SELECTORS) return;
+  selectors = {
+    matchSelector: msg.matchSelector,
+    containerSelector: msg.containerSelector,
+  };
 });

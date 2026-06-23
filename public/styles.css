@@ -89,7 +89,7 @@ button:disabled {
 }
 
 .welcome {
-  padding: 40px 0 18px;
+  padding: 24px 0 16px;
 }
 
 .welcome__title {
@@ -114,11 +114,11 @@ button:disabled {
 .templates {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
 }
 
 .template {
-  padding: 16px 18px;
+  padding: 13px 16px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -137,7 +137,7 @@ button:disabled {
 }
 
 .prompt {
-  margin-top: 28px;
+  margin-top: auto;
   background: var(--field);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
